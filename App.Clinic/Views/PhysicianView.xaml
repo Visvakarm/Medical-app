@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.Clinic.Views.PhysicianView"
+             Title="PhysicianView"
+             NavigatedTo="PhysicianView_NavigatedTo"
+             >
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Name:"/>
+            <Entry Grid.Column="1" Text="{Binding Name}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="License Number:"/>
+            <Entry Grid.Column="1" Text="{Binding LicenseNumber}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Specialization:"/>
+            <Entry Grid.Column="1" Text="{Binding Specialization}"/>  
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Graduation Date:"/>
+            <DatePicker Grid.Column="1" Date="{Binding GraduationDate}"/>
+        </Grid>
+        <Button
+            Text="Ok"
+            Clicked="AddClicked"
+            />
+        <Button
+            Text="Cancel"
+            Clicked="CancelClicked"
+            />
+    </VerticalStackLayout>
+</ContentPage>
