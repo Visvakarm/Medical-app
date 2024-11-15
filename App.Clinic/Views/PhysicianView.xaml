@@ -3,54 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Clinic.Views.PhysicianView"
              Title="PhysicianView"
-             NavigatedTo="PhysicianView_NavigatedTo"
-             >
+             NavigatedTo="PhysicianView_NavigatedTo">
     <VerticalStackLayout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Name:"/>
-            <Entry Grid.Column="1" Text="{Binding Name}"/>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="License Number:"/>
-            <Entry Grid.Column="1" Text="{Binding LicenseNumber}"/>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Specializations:"/>
-            <ListView Grid.Column="1" ItemsSource="{Binding Specializations}">
+        <HorizontalStackLayout>
+            <Label Text="Name:"/>
+            <Entry Text="{Binding Name}"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="License Number:"/>
+            <Entry Text="{Binding LicenseNumber}"/>
+        </HorizontalStackLayout>
+        <VerticalStackLayout Padding="10">
+            <!-- TextBox and Button for Adding Specializations -->
+            <HorizontalStackLayout Spacing="10">
+                <Entry x:Name="SpecializationEntry" 
+               Placeholder="Enter specialization" 
+               HorizontalOptions="FillAndExpand" />
+                <Button Text="Add"
+                Command="{Binding AddSpecializationCommand}"
+                CommandParameter="{Binding Text, Source={x:Reference SpecializationEntry}}" />
+            </HorizontalStackLayout>
+
+            <!-- Label -->
+            <Label Text="Specializations:" FontSize="Medium" Margin="0,10,0,0" />
+
+            <!-- ListView for Specializations -->
+            <ListView ItemsSource="{Binding Specializations}" HeightRequest="200">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding .}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="10*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="Graduation Date:"/>
-            <DatePicker Grid.Column="1" Date="{Binding GraduationDate}"/>
-        </Grid>
+        </VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="Graduation Date:"/>
+            <DatePicker Date="{Binding GraduationDate}"/>
+        </HorizontalStackLayout>
         <Button
             Text="Ok"
-            Clicked="AddClicked"
-            />
+            Clicked="AddClicked"/>
         <Button
             Text="Cancel"
-            Clicked="CancelClicked"
-            />
+            Clicked="CancelClicked"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -17,6 +17,8 @@ namespace App.Clinic.ViewModels
         public Physician? Model { get; set; }
         public ICommand? DeleteCommand { get; set; }
         public ICommand? EditCommand { get; set; }
+        public ICommand? AddSpecializationCommand { get; set; }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -68,14 +70,15 @@ namespace App.Clinic.ViewModels
             }
         }
 
+        private ObservableCollection<string> _specializations;
         public ObservableCollection<string> Specializations
         {
-            get => new ObservableCollection<string>(Model?.Specializations ?? new List<string>());
+            get => _specializations;
             set
             {
-                if (Model != null)
+                if (_specializations != value)
                 {
-                    Model.Specializations = value.ToList();
+                    _specializations = value;
                     OnPropertyChanged();
                 }
             }
@@ -98,6 +101,7 @@ namespace App.Clinic.ViewModels
         {
             DeleteCommand = new Command(DoDelete);
             EditCommand = new Command((p) => DoEdit(p as PhysicianViewModel));
+            AddSpecializationCommand = new Command<string>(AddSpecialization);
         }
 
         private void DoDelete()
@@ -122,15 +126,30 @@ namespace App.Clinic.ViewModels
         public PhysicianViewModel()
         {
             Model = new Physician();
+            _specializations = new ObservableCollection<string>();
             SetupCommands();
         }
 
         public PhysicianViewModel(Physician? _model)
         {
             Model = _model;
+            _specializations = new ObservableCollection<string>(Model?.Specializations ?? new List<string>());
             SetupCommands();
         }
+        private void AddSpecialization(string specialization)
+        {
+            if (!string.IsNullOrWhiteSpace(specialization))
+            {
+                Specializations.Add(specialization);
 
+            
+                if (Model != null && Model.Specializations != null)
+                {
+                    Model.Specializations.Add(specialization);
+                }
+                OnPropertyChanged(nameof(Specializations));
+            }
+        }
         public void ExecuteAdd()
         {
             if (Model != null)
@@ -143,7 +162,7 @@ namespace App.Clinic.ViewModels
             Shell.Current.GoToAsync("//Physicians");
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
