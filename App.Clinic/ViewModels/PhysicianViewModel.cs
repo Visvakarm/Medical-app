@@ -70,7 +70,8 @@ namespace App.Clinic.ViewModels
             }
         }
 
-        private ObservableCollection<string> _specializations;
+<<<<<<<<< Temporary merge branch 1
+=========
         public ObservableCollection<string> Specializations
         {
             get => _specializations;
