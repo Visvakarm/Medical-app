@@ -14,6 +14,8 @@ namespace App.Clinic.ViewModels
 {
     public class PhysicianViewModel : INotifyPropertyChanged
     {
+        private ObservableCollection<string> _specializations;
+
         public Physician? Model { get; set; }
         public ICommand? DeleteCommand { get; set; }
         public ICommand? EditCommand { get; set; }
@@ -70,8 +72,6 @@ namespace App.Clinic.ViewModels
             }
         }
 
-<<<<<<<<< Temporary merge branch 1
-=========
         public ObservableCollection<string> Specializations
         {
             get => _specializations;
